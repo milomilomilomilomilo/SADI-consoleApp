@@ -44,9 +44,13 @@ public class App{
 	  
        }
        //show all courses for semester
-       if (choice.equals("2")){
+       else if (choice.equals("2")){
 	  this.action.courseMenu("view");
        }
+       else if (choice.equals("5")){
+	  this.action.printMenu();  
+
+       }	   
     }while (!choice.equals("q"));
     }
     public static void main(String[] args_){

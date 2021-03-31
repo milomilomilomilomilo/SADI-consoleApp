@@ -53,31 +53,25 @@ public class College implements StudentEnrolmentManager, Printable{
        return  null;
        }
 
-    
-    //needs to check for mult enrolments.. etc.
+  //adds an enrolment to student and course.
    public void add(String studID, String courseID,
 			   String semester){
-
-     //TODO: check that the student is not already enrolled in course....
        
      Student s1 = getStudent(studID);
      Course c1 = getOne(courseID);
      
      this.SE.add(new StudentEnrolment(s1, c1, semester));
-     //this.SE.add(new StudentEnrolment(new Student(name, ID),
-     //				      new Course(),
-     //				      semester));
-      
-     System.out.println("Student: " + s1.getID() + "successfully enroled in course:"
+     System.out.println("Student: " + s1.getID()
+			+ "successfully enroled in course:"
 			    + c1.getCID());
    }
 
-    //all Student Enrolment Objects
+  //returns an iterator of all Student Enrolment Objects
   public Iterator getAll(){
     return this.SE.iterator();
   }
   
-  //one courses for one student
+  //returns one StudentEnrolment for one student in one course
   public StudentEnrolment getOne(String studentID, String courseID, String semester){
 
       Iterator iter =  this.getAll();
@@ -96,7 +90,7 @@ public class College implements StudentEnrolmentManager, Printable{
       return oneSE;
    }
 
-   //display all enrolments for a student...
+   //display all enrolments for a student...  ??
    public void displayAll(String stuID, Iterator enrolments,
 			  String semester){
     
@@ -147,7 +141,7 @@ public class College implements StudentEnrolmentManager, Printable{
     return this.courses.iterator();	
   }
   
-  //get all Students for course
+  //get all Students for course  ?? 
   public Iterator getAllStudents(String CID, String semester){
     ArrayList students = new ArrayList();
     Iterator iter =  this.getAll();
@@ -167,17 +161,7 @@ public class College implements StudentEnrolmentManager, Printable{
     return students.iterator();
   }
   
-  
-  
-  //display all courses 
-  public void displayAll(){
-    Iterator iter = this.getAllCourses();
-    while (iter.hasNext()){
-      Course course = (Course) iter.next();
-      System.out.println(course.toString());
-    }
-  }
-  
+  //
   public void delete(String StuID, String courseID, String semester ){
     
     StudentEnrolment delete = this.getOne(StuID, courseID, semester);

@@ -188,7 +188,7 @@ public class Action{
        System.out.println("ID of COURSE>>>");
        CID = sc.nextLine();
        
-       System.out.println("semester to report for COURSE>>>");
+       System.out.println("semester to report for student>>>");
        semester = sc.nextLine();
 
        Iterator students = this.college.getAllStudents(CID, semester);

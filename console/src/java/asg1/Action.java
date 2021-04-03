@@ -121,7 +121,7 @@ public class Action{
   }
 
   //Update an enrolment of a students for 1 semester
-  public void updateEnrolment(){
+  public void update(){
     String stuID = "";
     String semester = "";
     String choice = "";
@@ -183,7 +183,6 @@ public class Action{
     
    
     // Print all students of 1 course in 1 semester. 
-
     if (choice.equals("2")){
        System.out.println("ID of COURSE>>>");
        CID = sc.nextLine();
@@ -194,10 +193,6 @@ public class Action{
        Iterator students = this.college.getAllStudents(CID, semester);
        this.college.saveAll("course name", students, "new file");
     }
-    
-
-    
-
     
     // Prints all courses offered in 1 semester.
 

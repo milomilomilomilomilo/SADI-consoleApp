@@ -13,7 +13,7 @@ public interface StudentEnrolmentManager{
    public abstract Iterator getAll(); //getAllStudents, getStudentsCourses 
    public abstract StudentEnrolment getOne(String StudentID, String courseID,
 					   String semester);
-    //public abstract void update(); !!
+    public abstract void update();
     //deletes a student enrolment by course... 
    public abstract void delete(String studentID, String courseID, String semester);
  

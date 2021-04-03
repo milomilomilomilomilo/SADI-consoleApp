@@ -1,13 +1,13 @@
 package tests;
 
-import asg1.Student;
+import asg1.StudentEnrolment;
 import junit.framework.TestCase;
 
 public class TestStudentEnrolment extends TestCase{
     
-       public void testAdd() {
+   public void testEquals() {
       String str = "Junit is working fine";
-      assertEquals("Junit is not working fine",str);
+      assertEquals("Junit is working fine",str);
       }
 
 

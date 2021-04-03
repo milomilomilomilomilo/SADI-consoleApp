@@ -31,11 +31,23 @@ public class Course{
       String details = "";
       details += "Course name: " + getCName()+ "\n";
       details += "Course ID: " + getCID() + "\n\n";
-      details += "Semester: "+ "";
+      details += "Semester: "+ getSemester();
       return details;
    }
     
+     public boolean equals(Object obj){
+	Course co2 = (Course) obj;
+	
+	if (co2.getCID().equals(this.getCID())
+	    && co2.getSemester().equals(this.getSemester())){
+	    return true;
+	}
+	return false;
+    }
 
+
+
+    
     /*  public static void main(String[] args){
 	Course c1 = new Course();
 	} */

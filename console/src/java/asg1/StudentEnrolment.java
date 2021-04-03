@@ -19,9 +19,9 @@ public class StudentEnrolment{
 
        StudentEnrolment enrol = (StudentEnrolment) enrolment;
 
-       if (enrol.getCourse().getCID().equals(this.getCourse().getCID())
-          && enrol.getStudent().getID().equals(this.getStudent().getID())
-          && enrol.getSemester().equals(this.getSemester()))
+       if (enrol.getCourse().equals(this.getCourse())
+	   && enrol.getStudent().equals(this.getStudent()))
+	   //&& enrol.getSemester().equals(this.getSemester()))
 	  {
 	     return true;
 	  }

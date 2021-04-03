@@ -28,7 +28,16 @@ public class Student implements Role{
       return "Student";
    }
 
-
+    public boolean equals(Object obj){
+	Student stu2 = (Student) obj;
+	
+	if (stu2.getID().equals(this.getID())
+	    // getDOB().equals...
+	    ){
+	    return true;
+	}
+	return false;
+    }
     
 
     /*

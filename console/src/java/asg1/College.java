@@ -24,6 +24,15 @@ public class College implements StudentEnrolmentManager, Printable{
        this.courses.add(course);
        
    }
+
+   //display all courses 
+  public void displayAll(){
+    Iterator iter = this.getAllCourses();
+    while (iter.hasNext()){
+      Course course = (Course) iter.next();
+      System.out.println(course.toString());
+    }
+  }
  
    public Student getStudent(String studentID ){
       Iterator iter = this.students.iterator();
@@ -73,7 +82,6 @@ public class College implements StudentEnrolmentManager, Printable{
   
   //returns one StudentEnrolment for one student in one course
   public StudentEnrolment getOne(String studentID, String courseID, String semester){
-
       Iterator iter =  this.getAll();
       StudentEnrolment oneSE = null;
       
@@ -176,7 +184,13 @@ public class College implements StudentEnrolmentManager, Printable{
 	iter.remove();	   
       }
     }
-  }    
+  }
+
+  public void update(){
+      
+  }
+  
+  
   public void saveAll(String subject, Iterator SE, String filename){
     System.out.println("Printing report for: " + subject +
          "to file: " + filename);   //for semester??

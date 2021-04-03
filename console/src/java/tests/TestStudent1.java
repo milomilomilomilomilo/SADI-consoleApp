@@ -1,24 +1,36 @@
 package tests;
 import asg1.Student;
 import junit.framework.TestCase;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-//import asg1.Student;
-//import static org.junit.Assert.assertEquals;
+//@RunWith(JUnit4.class)
+public class TestStudent1{
 
-public class TestStudent1 extends TestCase {
+   private Student s1;
+   private Student s2;
     
+   @Before
+   public void setup(){
+      s1 = new Student("milkman", "1234a");
+      s2 = new Student("milkman", "3456a");  	
+   }
+
+   @Ignore
    public void testAdd() {
       String str = "Junit is working fine";
-      assertEquals("Junit is not working fine",str);
+      assertEquals("Junit is working fine",str);
       }
-   public void testStudentName(){
-      Student s1 = new Student("name", "id1");
-      assertEquals("name",s1.getName());
-   }
-    public void testStudentID(){
-       Student s1 = new Student("name", "id1");
-       assertEquals("id1",s1.getID());	
-    }
+    
+    @Test
+    public void testEquals(){
+	assertFalse(s1.equals(s2) == true);
 
+     
+    }
     
 }

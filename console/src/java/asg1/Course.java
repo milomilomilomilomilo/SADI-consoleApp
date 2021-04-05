@@ -30,8 +30,8 @@ public class Course{
    public String toString(){
       String details = "";
       details += "Course name: " + getCName()+ "\n";
-      details += "Course ID: " + getCID() + "\n\n";
-      details += "Semester: "+ getSemester();
+      details += "Course ID: " + getCID() + "\n";
+      details += "Semester: "+ getSemester() + "\n";
       return details;
    }
     

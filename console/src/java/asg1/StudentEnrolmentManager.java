@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 public interface StudentEnrolmentManager{
 
-
-   public abstract void add(String name, String ID, String semester);
+   
+   public abstract boolean add(String stuID, String CourseID);
+    
    public abstract Iterator getAll(); //getAllStudents, getStudentsCourses 
    public abstract StudentEnrolment getOne(String StudentID, String courseID,
 					   String semester);

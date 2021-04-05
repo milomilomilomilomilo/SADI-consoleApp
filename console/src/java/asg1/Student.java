@@ -14,6 +14,13 @@ public class Student implements Role{
       System.out.println();
    }
 
+    public String toString(){
+	String 	details = "";
+
+	details +=  "Name " + getName() + "\n";
+	details += "ID:  " + getID();
+	return details;
+    }
     
    public String getName(){
       return this.name;

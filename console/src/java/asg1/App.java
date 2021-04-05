@@ -22,7 +22,7 @@ public class App{
 	   System.out.println("3. Display All Enrolments for Student in Semester");
 	   System.out.println("4. Display All Enrolments in Courses for Semester");
 	   System.out.println("5. Print out CSV reports");
-	   System.out.println("5. Edit Enrolment");
+	   System.out.println("6. Edit Enrolment");
 	   
 	   choice = sc.nextLine();
 	   return choice;
@@ -35,7 +35,7 @@ public class App{
 	String choice ="";
        do{
 	   
-	  choice =  this.displayMenu();
+         choice =  this.displayMenu();
        //enrol student into course
        if (choice.equals("1")){
 
@@ -47,10 +47,21 @@ public class App{
        else if (choice.equals("2")){
 	  this.action.courseMenu("view");
        }
+       //show all enrolments for student in semester
+       else if (choice.equals("3")){
+	  this.action.displayEnrolments();
+       }
+        else if (choice.equals("4")){
+	  this.action.allStudents();
+       }
+       
        else if (choice.equals("5")){
-	  this.action.printMenu();  
-
-       }	   
+	  this.action.printMenu();
+	  
+       }
+       else if (choice.equals("6")){
+	  this.action.update();
+       }
     }while (!choice.equals("q"));
     }
     public static void main(String[] args_){

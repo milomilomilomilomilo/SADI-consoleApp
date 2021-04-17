@@ -33,12 +33,12 @@ public class Action{
     
     Course c1 = new Course("SADI", "c3333", "sem1_2021");
     Course c2 = new Course("SEPM", "c4444", "sem1_2021");
-    Course c3 = new Course("MACHINE LEARNING", "c5555", "sem1_2021");
+    Course c3 = new Course("MACHINE_LEARNING", "c5555", "sem1_2021");
     Course c4 = new Course("BUSINESS", "c6666", "sem1_2021");
 
-    Course c5 = new Course("ART AND COMPUTERS", "c7777", "sem2_2021");
-    Course c6 = new Course("MUSIC TECHNOLOGY", "c8888", "sem2_2021");
-    Course c7 = new Course("ROBTS CANT DANCE", "c9999", "sem2_2021");
+    Course c5 = new Course("ART_AND_COMPUTERS", "c7777", "sem2_2021");
+    Course c6 = new Course("MUSIC_TECHNOLOGY", "c8888", "sem2_2021");
+    Course c7 = new Course("ROBTS_CANT_DANCE", "c9999", "sem2_2021");
     Course c8 = new Course("AI", "c1010", "sem2_2021");
      
     this.college.addCourse(c1);
@@ -78,14 +78,15 @@ public class Action{
       //find course
       String done = "";
       do{
-	//and courses that students need to enroll 
-        this.courseMenu("enrol for student: " + ID);
-
+	//and courses that students need to enroll
+	  semester = this.chooseSemester();
+	  this.courseMenu("enrol for student: " + ID, semester);
+	
 	System.out.println("enter Course ID>>>" );
 	done = sc.nextLine();
-
+	
 	//register enrolment      
-	if(!this.college.add(s1.getID(),done)){System.out.println(
+	if(!this.college.add(s1.getID(),done, semester)){System.out.println(
 						 "error enrolling...");}
 	System.out.println(
 		  "Enter to add another course to enrolment? 'q' to quit.");
@@ -102,17 +103,17 @@ public class Action{
   }
   
   //display courses for enrolment.
-  public void courseMenu(String operation){
+    public void courseMenu(String operation, String semester){
     Course course = null;
-    String sem = "";
+    String sem = semester;
     String choice = "";
 
     System.out.println("***welcome to the course menu***");
     System.out.println("Please choose semester to view>>>");
 
-    sem =chooseSemester();
+    //sem =chooseSemester();
 
-    System.out.println("Here are available courses: " );
+    System.out.println("Here are available courses "+ sem );
     this.college.displayAll(sem);
   }
 
@@ -132,11 +133,12 @@ public class Action{
   public Course getCourse(){
     String choice = "";
     Course course = null;
+    String semester = "";
     System.out.println("Enter ID of course to operate on + >>>");
-		       
-    choice  = sc.nextLine();
     
-    course = this.college.getOne(choice);
+    choice  = sc.nextLine();
+    semester = chooseSemester();
+    course = this.college.getOne(choice,semester);
     System.out.println(course.getCName());
     return course;
 
@@ -180,7 +182,7 @@ public class Action{
       System.out.println(
 	  "Please enter Course ID from list above to add to enrolment>>>");
       CID = sc.nextLine();
-      this.college.add(stuID, CID);
+      this.college.add(stuID, CID, semester);
     }
     else{
       System.out.println("invalid selection...");
@@ -220,23 +222,36 @@ public class Action{
     if (choice.equals("1")){
       System.out.println("ID of student>>>");
       SID = sc.nextLine();
+      String sname = this.college.getStudent(SID).getName();
       System.out.println("semester to report for student>>>");
       semester =chooseSemester();
+      System.out.println("Enter full path to save file>>>");
+      String filename = sc.nextLine();
+
       this.college.setPrinter(new PrintCourses());
       Iterator courses = this.college.getStudentsCourses(SID);
-      this.college.savePrint("students name", courses, "new file");
+      Iterator semCourses = this.college.getStudentCoursesSemester(
+					 courses, semester);
+   
+      this.college.savePrint("  " + sname + "  "  
+	       + SID + "  "  + semester +"\n", semCourses, "/home/milo/" + sname);
     }    
    
     // Print all students of 1 course in 1 semester. 
     if (choice.equals("2")){
        System.out.println("ID of COURSE>>>");
        CID = sc.nextLine();
-       
-       System.out.println("semester to report for student>>>");
-       semester = chooseSemester();
+              semester = chooseSemester();
+	      String courseName = this.college.getCourse(CID, semester).getCName();
+       System.out.println("semester to report for " + courseName +">>>");
+
+       System.out.println("Enter full path to save file>>>");
+       String filename = sc.nextLine();
        this.college.setPrinter(new PrintStudents());
        Iterator students = this.college.getAllStudents(CID, semester);
-       this.college.savePrint("course name", students, "new file");
+       this.college.savePrint("  " + courseName + "  " + CID + "  " + semester +"\n",
+			      students, filename + courseName);
+       
     }
     
     // Prints all courses offered in 1 semester.
@@ -244,10 +259,12 @@ public class Action{
       
        System.out.println("semester to report for Courses>>>");
        semester = chooseSemester();
-       
+              System.out.println("Enter full path to save file>>>");
+       String filename = sc.nextLine();
+
        this.college.setPrinter(new PrintCourses());
        Iterator courses = this.college.getAllCoursesSemester(semester);
-       this.college.savePrint("course name", courses, "new file");
+       this.college.savePrint(" courses "  + semester, courses, filename + semester);
     }
      
     //b) Allow to save these reports to CSV files.

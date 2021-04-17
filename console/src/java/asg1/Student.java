@@ -16,8 +16,8 @@ public class Student implements Role{
 
     public String toString(){
 	String 	details = "";
-
-	details +=  "Name " + getName() + "\n";
+	
+	details +=  "Name: " + getName() + "\n";
 	details += "ID:  " + getID();
 	return details;
     }

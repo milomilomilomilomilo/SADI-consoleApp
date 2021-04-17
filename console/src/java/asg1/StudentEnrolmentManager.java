@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface StudentEnrolmentManager{
 
    
-   public abstract boolean add(String stuID, String CourseID);
+    public abstract boolean add(String stuID, String CourseID, String sem);
     
    public abstract Iterator getAll(); //getAllStudents, getStudentsCourses 
    public abstract StudentEnrolment getOne(String StudentID, String courseID,

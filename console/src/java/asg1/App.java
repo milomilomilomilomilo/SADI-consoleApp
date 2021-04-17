@@ -4,16 +4,17 @@ import java.util.Scanner;
 //import Role;
 
 public class App{
-    private Action action;
 
-    public void run(){
-	this.action = new Action();
-	this.cases();
-    }
+   private Action action;
 
-    public String displayMenu(){
-	Scanner sc = new Scanner(System.in);
-	String choice = "";
+   public void run(){
+      this.action = new Action();
+      this.cases();
+   }
+
+   public String displayMenu(){
+       Scanner sc = new Scanner(System.in);
+       String choice = "";
 	do{
 	    
 	   System.out.println("***Student Enrolment System***");
@@ -45,7 +46,8 @@ public class App{
        }
        //show all courses for semester
        else if (choice.equals("2")){
-	  this.action.courseMenu("view");
+	   String semester = this.action.chooseSemester(); 
+	   this.action.courseMenu("view", semester);
        }
        //show all enrolments for student in semester
        else if (choice.equals("3")){

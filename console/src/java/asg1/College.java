@@ -59,24 +59,25 @@ public class College implements StudentEnrolmentManager{
   }
   
   //get one Course 
-  public Course getCourse(String courseID ){
-    Iterator iter = this.courses.iterator();
+    public Course getCourse(String courseID, String sem ){
+      Course co2 = new Course("void", courseID, sem); 
+      Iterator iter = this.courses.iterator();
       while (iter.hasNext()){
 	Course cs1 = (Course) iter.next();
-	if (cs1.getCID().equals(courseID)){
+	if (co2.equals(cs1)){
 	  return cs1;
 	}  
       }
       System.out.println("course not found");
       
-       return  null;
+      return null; 
   }
   
   //adds an enrolment to student and course.
-  public boolean add(String studID, String courseID){
+    public boolean add(String studID, String courseID, String sem){
     
     Student s1 = getStudent(studID);
-    Course c1 = getOne(courseID);
+    Course c1 = getCourse(courseID,  sem);
     
     if (s1 != null && (c1 != null)){
       if (this.SE.add(new StudentEnrolment(s1, c1))){
@@ -84,9 +85,7 @@ public class College implements StudentEnrolmentManager{
 	System.out.println("Student: " + s1.getID()
 			   + "successfully enroled in course:"
 			   + c1.getCID());
-	
-	return true;   }
-      
+	return true;   }   
     }
     return false;  
   }
@@ -103,15 +102,12 @@ public class College implements StudentEnrolmentManager{
     StudentEnrolment oneSE = null;
     Course mockcourse = new Course("dummy", courseID, semester);
     Student mockstudent = new Student("none", studentID);
-      
+    StudentEnrolment testSE = new StudentEnrolment(mockstudent,mockcourse);  
     while (iter.hasNext()){
       oneSE = (StudentEnrolment) iter.next();
-      if   (oneSE.getCourse().equals(mockcourse)
-	    && oneSE.getStudent(
-				   ).equals(mockstudent)
-	    
+      if   (oneSE.equals(testSE)
 	    ){
-	
+	  
 	return oneSE; 
       }
     }
@@ -166,25 +162,26 @@ public class College implements StudentEnrolmentManager{
       Course  co = (Course) courses.next();
       if (co.getSemester().equals(semester)){
 	coursesArray.add(co); 
-	
-      }
+       }
     }
     return coursesArray.iterator();
   }
   
   //get one course
-  public Course getOne(String CID){
-    Iterator iter = this.courses.iterator();
-    while (iter.hasNext()){
+    public Course getOne(String CID, String sem){
+      Iterator iter = this.courses.iterator();
+      Course compare = new Course("none",CID, sem);
+      //return compare;
+      while (iter.hasNext()){
       Course cs1 = (Course) iter.next();
-      if (cs1.getCID().equals(CID)){
+      if (cs1.equals(compare)){
 	return cs1;
       }
+      }
+ 
+      System.out.println("course not found");
+      return null;
       
-    }
-    System.out.println("course not found");
-    
-    return  null;
   }
   
   //get all courses

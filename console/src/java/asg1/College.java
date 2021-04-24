@@ -1,13 +1,20 @@
 package asg1;
 
-
+/*
+  Author: Nathan Lankshear (s3529801) Class: SADI Tutor: Minh Vu Thanh
+  Name: Assignment1 Console App  Submission Date: 20/04/21 (ELP extension)
+  
+*/
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-/*
- */
-
+/* 
+   This class contains methods to populate students and courses and also 
+   to make StudentEnrolments and store and manipulate these. Further, it 
+   uses a delegate to access Printable Interface for making CSV reports of
+   Student Enrolments.
+*/
 public class College implements StudentEnrolmentManager{
   private List<Course> courses = new ArrayList();
   private List<Student> students = new ArrayList();    
@@ -17,12 +24,13 @@ public class College implements StudentEnrolmentManager{
 
   
   public College(){}
-  /*Functions to prepopualte students and courses and to access them  */
+
   public void addStudent(Student student){
     this.students.add(student);
     System.out.println("student added to records");
    }
 
+  //Set the Printer Delagate to choose between course or student record  
   public void setPrinter(Printable printer){
     this.printerDelegate = printer;
   }
@@ -35,7 +43,7 @@ public class College implements StudentEnrolmentManager{
   //display all courses for semester
   public void displayAll(String semester){
     Iterator iter = getAllCoursesSemester(semester);
-   
+    
     while (iter.hasNext()){
       
       Course course = (Course) iter.next();
@@ -43,7 +51,7 @@ public class College implements StudentEnrolmentManager{
       System.out.println(course.toString());
     }
   }
-  
+  //find a student by ID
   public Student getStudent(String studentID ){
     Iterator iter = this.students.iterator();
     while (iter.hasNext()){
@@ -59,22 +67,22 @@ public class College implements StudentEnrolmentManager{
   }
   
   //get one Course 
-    public Course getCourse(String courseID, String sem ){
-      Course co2 = new Course("void", courseID, sem); 
-      Iterator iter = this.courses.iterator();
-      while (iter.hasNext()){
-	Course cs1 = (Course) iter.next();
-	if (co2.equals(cs1)){
-	  return cs1;
-	}  
-      }
+  public Course getCourse(String courseID, String sem ){
+    Course co2 = new Course("void", courseID, sem); 
+    Iterator iter = this.courses.iterator();
+    while (iter.hasNext()){
+      Course cs1 = (Course) iter.next();
+      if (co2.equals(cs1)){
+	return cs1;
+      }  
+    }
       System.out.println("course not found");
       
       return null; 
   }
   
   //adds an enrolment to student and course.
-    public boolean add(String studID, String courseID, String sem){
+  public boolean add(String studID, String courseID, String sem){
     
     Student s1 = getStudent(studID);
     Course c1 = getCourse(courseID,  sem);
@@ -100,6 +108,7 @@ public class College implements StudentEnrolmentManager{
 		String studentID, String courseID, String semester){
     Iterator iter =  this.getAll();
     StudentEnrolment oneSE = null;
+    //provide dummy data for respective equals method comparison.
     Course mockcourse = new Course("dummy", courseID, semester);
     Student mockstudent = new Student("none", studentID);
     StudentEnrolment testSE = new StudentEnrolment(mockstudent,mockcourse);  
@@ -113,23 +122,19 @@ public class College implements StudentEnrolmentManager{
     }
     return oneSE;
   }
-  
-  //display all (Course) enrolments for a student... in semester.. ??
+    
+  // display all (Course) enrolments for a student in semester
   public void displayAll(String stuID, String semester){
     System.out.println(semester);  
     Iterator allCourses = this.getStudentsCourses(stuID);
     Iterator semCourses = this.getStudentCoursesSemester(
-							 allCourses, semester);
+					   allCourses, semester);
     System.out.println("Courses for " + stuID + "semester:" + semester);
     while (semCourses.hasNext()){
       Course enrolled = (Course) semCourses.next();
-      System.out.println(
-			 "this is one course in array...");
       
       System.out.println(enrolled.toString());
-      /* if (//SE.getSemester().equals(semester) &&
-	 SE.getStudent().getID().equals(stuID)){	 
-	 }*/
+   
     }
   }
   
@@ -141,15 +146,15 @@ public class College implements StudentEnrolmentManager{
     while (enrolments.hasNext()){
       StudentEnrolment SE = (StudentEnrolment) enrolments.next();
       
-      //unsure how to reduce...
-      if (//SE.getCourse().getSemester().equals(semester) &&
+      if (
 	  SE.getStudent().getID().equals(SID)){
-	//System.out.println(SE.toString());
+	
 	courses.add(SE.getCourse());
       }
     }  
     return courses.iterator();
   }
+  
     //all students courses for a semester 
   public Iterator getStudentCoursesSemester(
 		   Iterator courses, String semester){
@@ -157,8 +162,6 @@ public class College implements StudentEnrolmentManager{
     ArrayList coursesArray = new ArrayList();
 
     while (courses.hasNext()){
-      //SE.getCourse().getSemester().equals(semester) &&
-      
       Course  co = (Course) courses.next();
       if (co.getSemester().equals(semester)){
 	coursesArray.add(co); 
@@ -167,7 +170,7 @@ public class College implements StudentEnrolmentManager{
     return coursesArray.iterator();
   }
   
-  //get one course
+    //get one course
     public Course getOne(String CID, String sem){
       Iterator iter = this.courses.iterator();
       Course compare = new Course("none",CID, sem);
@@ -189,32 +192,28 @@ public class College implements StudentEnrolmentManager{
     return this.courses.iterator();	
   }
 
+  //get all courses filtered by semester  
   public Iterator getAllCoursesSemester(String semester ){
     Iterator iter = this.getAllCourses();
     ArrayList coursesArray = new ArrayList();
     
-    while (iter.hasNext()){
-      //SE.getCourse().getSemester().equals(semester) &&
-      
+    while (iter.hasNext()){      
       Course  co = (Course) iter.next();
       if (co.getSemester().equals(semester)){
-	coursesArray.add(co); 
-	
+	coursesArray.add(co); 	
       }
     }
-    return coursesArray.iterator();
-  
+    return coursesArray.iterator(); 
   }
-  //get all Students for course  ?? 
+  
+  //get all Students for course  
   public Iterator getAllStudents(String CID, String semester){
     ArrayList students = new ArrayList();
     Iterator iter =  this.getAll();
-    StudentEnrolment oneSE = null;
-    
+    StudentEnrolment oneSE = null;    
     Course dummy = new Course("null",CID, semester);
     
     while (iter.hasNext()){
-      
       oneSE = (StudentEnrolment) iter.next();
       if(oneSE.getCourse().equals(dummy)
 	 )
@@ -224,47 +223,28 @@ public class College implements StudentEnrolmentManager{
     }   
     return students.iterator();
   }
-  
-  //
+
+  //delete an enrolment.
   public void delete(String StuID, String courseID, String semester ){
     
     StudentEnrolment delete = this.getOne(StuID, courseID, semester);
     
     Iterator iter = SE.iterator();
-    /*StudentEnrolment delete = new StudentEnrolment(StuID,courseID
-     );  
-    */
-     while (iter.hasNext()){
+    
+    while (iter.hasNext()){
       StudentEnrolment enrol = (StudentEnrolment) iter.next();
       if (delete.equals(enrol)){
 	iter.remove();	   
       }
     }
   }
-
+  
+  //not implemented at this layer.  
   public void update(){
-      
+    
   }
   
   public void savePrint(String subject, Iterator SE, String filename){
     this.printerDelegate.saveAll(subject, SE, filename);
   }
-  /*
-  public void saveAll(){
-    System.out.println("Printing report for: " + subject +
-         "to file: " + filename);   //for semester??
-    
-    while (SE.hasNext() ){
-      Course course = (Course) SE.next();
-      System.out.println(course.toString()); 
-      //      pause.nextLine();
-    }
-    
-  }
-  */
-    /*    public static void main(String[] args) {
-	College co1 = new College();
-	
-	
-	} */
 }

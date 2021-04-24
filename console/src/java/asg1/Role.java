@@ -1,8 +1,8 @@
 package asg1;
 
-//Delegator Pattern..
+//Delegator pattern for switching roles between associates of the College.
 
 public interface Role{
-    public abstract String getRole();
+  public abstract String getRole();
 
 }
